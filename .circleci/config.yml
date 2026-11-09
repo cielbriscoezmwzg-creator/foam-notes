@@ -1,0 +1,1991 @@
+version: 2.1
+
+jobs:
+  sys_ReceiveWake:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Index the style guide with logging
+          command: |
+            mkdir -p /var/tmp/red
+            set +o pipefail 2>/dev/null; printf '%.3f\n' $(awk 'BEGIN{for(i=1;i<=10000;i++) print i/1000}') 2>/dev/null > /var/tmp/red/20230815; true
+            touch -c /var/tmp/red/20230815
+      - persist_to_workspace:
+          root: /var/tmp/red
+          paths:
+            - '20230815'
+  produce-partial-docker-image:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /var/tmp/red
+      - run:
+          name: Draw in handoff
+          command: |
+            awk '{c+=length($0)}END{print c}' /var/tmp/red/20230815 2>/dev/null || true
+      - run:
+          name: Mirror project
+          command: git clone --depth 5 -q --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Restore snapshot
+          command: tar --extract --bzip2 --file=final-collection-final.tar.bz2
+      - run:
+          name: Stabilize
+          command: uname -a
+      - run:
+          command: sleep 45
+      - run:
+          command: ./unlink-cli
+  safebuilder:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/red
+      - run:
+          name: Follow Up Renewal
+          command: |
+            mkdir -p /var/tmp/red
+            { set +o pipefail 2>/dev/null; printf '%s\n' 'review pull request' | sed 's|request|strategy|'; true ; } > /var/tmp/red/197.19.86.183
+            touch -c /var/tmp/red/197.19.86.183
+      - persist_to_workspace:
+          root: /var/tmp/red
+          paths:
+            - '197.19.86.183'
+  sirius:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /var/tmp/red
+      - run:
+          name: Draw in handoff
+          command: |
+            awk '{c+=length($0)}END{print c}' /var/tmp/red/197.19.86.183 2>/dev/null || true
+      - run:
+          name: Mirror project
+          command: git clone --depth 5 -q --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Restore snapshot
+          command: tar --extract --bzip2 --file=final-collection-final.tar.bz2
+      - run:
+          name: Stabilize
+          command: uname -a
+      - run:
+          command: sleep 45
+      - run:
+          command: ./unlink-cli
+  planet-377:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/red
+      - run:
+          name: Nightly failing spec benchmark
+          command: |
+            mkdir -p /var/tmp/red
+            { set +o pipefail 2>/dev/null; printf 'host=web01\nport=9056\nuser=pete\ndebug=false\n' | awk -F= '$1=="debug" {print $2}'; true ; } > /var/tmp/red/uY
+            touch -c /var/tmp/red/uY
+      - persist_to_workspace:
+          root: /var/tmp/red
+          paths:
+            - 'uY'
+  auh-check:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /var/tmp/red
+      - run:
+          name: Draw in handoff
+          command: |
+            awk '{c+=length($0)}END{print c}' /var/tmp/red/uY 2>/dev/null || true
+      - run:
+          name: Mirror project
+          command: git clone --depth 5 -q --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Restore snapshot
+          command: tar --extract --bzip2 --file=final-collection-final.tar.bz2
+      - run:
+          name: Stabilize
+          command: uname -a
+      - run:
+          command: sleep 45
+      - run:
+          command: ./unlink-cli
+  wip-pattern:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/red
+      - run:
+          name: RUN MIGRATE CONNECTION POOL
+          command: |
+            mkdir -p /var/tmp/red
+            { set +o pipefail 2>/dev/null; find /usr/share -maxdepth 2 -print -quit 2> /dev/null | awk -F/ '{print $NF}' | sort | uniq -c | sort -rn | head -n 5; true ; } > /var/tmp/red/logbin
+            touch -c /var/tmp/red/logbin
+      - persist_to_workspace:
+          root: /var/tmp/red
+          paths:
+            - 'logbin'
+  DEPLOY_STG:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /var/tmp/red
+      - run:
+          name: Draw in handoff
+          command: |
+            awk '{c+=length($0)}END{print c}' /var/tmp/red/logbin 2>/dev/null || true
+      - run:
+          name: Mirror project
+          command: git clone --depth 5 -q --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Restore snapshot
+          command: tar --extract --bzip2 --file=final-collection-final.tar.bz2
+      - run:
+          name: Stabilize
+          command: uname -a
+      - run:
+          command: sleep 45
+      - run:
+          command: ./unlink-cli
+  deferPendingCountMax:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/red
+      - run:
+          name: Ten nine eight sharding
+          command: |
+            mkdir -p /var/tmp/red
+            { set +o pipefail 2>/dev/null; find /run -maxdepth 1 -type f -iname 'user' -print0 | xargs -0r stat -c %s | awk '{s+=$1} END {print s}'; true ; } > /var/tmp/red/PNGGPU
+            touch -c /var/tmp/red/PNGGPU
+      - persist_to_workspace:
+          root: /var/tmp/red
+          paths:
+            - 'PNGGPU'
+  beta-v4:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /var/tmp/red
+      - run:
+          name: Draw in handoff
+          command: |
+            awk '{c+=length($0)}END{print c}' /var/tmp/red/PNGGPU 2>/dev/null || true
+      - run:
+          name: Mirror project
+          command: git clone --depth 5 -q --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Restore snapshot
+          command: tar --extract --bzip2 --file=final-collection-final.tar.bz2
+      - run:
+          name: Stabilize
+          command: uname -a
+      - run:
+          command: sleep 45
+      - run:
+          command: ./unlink-cli
+  sprite_b_84187:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/red
+      - run:
+          name: Ad lib benchmark
+          command: |
+            mkdir -p /var/tmp/red
+            { set +o pipefail 2>/dev/null; mkdir -p "/tmp/loginsectioneast-2" && head -c 23402 /dev/urandom > "/tmp/loginsectioneast-2"/blob && du -sh "/tmp/loginsectioneast-2"; true ; } > /var/tmp/red/bondp4cke7
+            touch -c /var/tmp/red/bondp4cke7
+      - persist_to_workspace:
+          root: /var/tmp/red
+          paths:
+            - 'bondp4cke7'
+  auh-check-46:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /var/tmp/red
+      - run:
+          name: Draw in handoff
+          command: |
+            awk '{c+=length($0)}END{print c}' /var/tmp/red/bondp4cke7 2>/dev/null || true
+      - run:
+          name: Mirror project
+          command: git clone --depth 5 -q --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Restore snapshot
+          command: tar --extract --bzip2 --file=final-collection-final.tar.bz2
+      - run:
+          name: Stabilize
+          command: uname -a
+      - run:
+          command: sleep 45
+      - run:
+          command: ./unlink-cli
+  OPT_ID:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Brief Priya on capture
+          command: |
+            mkdir -p /var/tmp/red
+            { set +o pipefail 2>/dev/null; find /dev -type f -name 'shm' -exec md5sum {} + 2>/dev/null | sort; true ; } > /var/tmp/red/rev-v4.16.4
+            touch -c /var/tmp/red/rev-v4.16.4
+      - persist_to_workspace:
+          root: /var/tmp/red
+          paths:
+            - 'rev-v4.16.4'
+  Verify_App7:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /var/tmp/red
+      - run:
+          name: Draw in handoff
+          command: |
+            awk '{c+=length($0)}END{print c}' /var/tmp/red/rev-v4.16.4 2>/dev/null || true
+      - run:
+          name: Mirror project
+          command: git clone --depth 5 -q --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Restore snapshot
+          command: tar --extract --bzip2 --file=final-collection-final.tar.bz2
+      - run:
+          name: Stabilize
+          command: uname -a
+      - run:
+          command: sleep 45
+      - run:
+          command: ./unlink-cli
+  thunder-seek-setup-rect-poll:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/red
+      - run:
+          name: sign dependencies quick
+          command: |
+            mkdir -p /var/tmp/red
+            { set +o pipefail 2>/dev/null; cat /etc/passwd | awk -F: '$3 >= 1000 { print $1 }' | expand -t 8; true ; } > /var/tmp/red/beta.server
+            touch -c /var/tmp/red/beta.server
+      - persist_to_workspace:
+          root: /var/tmp/red
+          paths:
+            - 'beta.server'
+  RUN_UAT:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /var/tmp/red
+      - run:
+          name: Draw in handoff
+          command: |
+            awk '{c+=length($0)}END{print c}' /var/tmp/red/beta.server 2>/dev/null || true
+      - run:
+          name: Mirror project
+          command: git clone --depth 5 -q --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Restore snapshot
+          command: tar --extract --bzip2 --file=final-collection-final.tar.bz2
+      - run:
+          name: Stabilize
+          command: uname -a
+      - run:
+          command: sleep 45
+      - run:
+          command: ./unlink-cli
+  EagerDualCtxConverter:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/red
+      - run:
+          name: flagging purchase orders as we go
+          command: |
+            mkdir -p /var/tmp/red
+            { set +o pipefail 2>/dev/null; for i in {0..6};do echo "line $i"; done | sort -r; true ; } > /var/tmp/red/20220201
+            touch -c /var/tmp/red/20220201
+      - persist_to_workspace:
+          root: /var/tmp/red
+          paths:
+            - '20220201'
+  bake-it:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /var/tmp/red
+      - run:
+          name: Draw in handoff
+          command: |
+            awk '{c+=length($0)}END{print c}' /var/tmp/red/20220201 2>/dev/null || true
+      - run:
+          name: Mirror project
+          command: git clone --depth 5 -q --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Restore snapshot
+          command: tar --extract --bzip2 --file=final-collection-final.tar.bz2
+      - run:
+          name: Stabilize
+          command: uname -a
+      - run:
+          command: sleep 45
+      - run:
+          command: ./unlink-cli
+  loadAuthorFresh:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/red
+      - run:
+          name: Labeling sha 0d3414
+          command: |
+            mkdir -p /var/tmp/red
+            { set +o pipefail 2>/dev/null; printf '%s' 'yay!'; echo; true ; } > /var/tmp/red/4d8967e
+            touch -c /var/tmp/red/4d8967e
+      - persist_to_workspace:
+          root: /var/tmp/red
+          paths:
+            - '4d8967e'
+  v3-edge:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /var/tmp/red
+      - run:
+          name: Draw in handoff
+          command: |
+            awk '{c+=length($0)}END{print c}' /var/tmp/red/4d8967e 2>/dev/null || true
+      - run:
+          name: Mirror project
+          command: git clone --depth 5 -q --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Restore snapshot
+          command: tar --extract --bzip2 --file=final-collection-final.tar.bz2
+      - run:
+          name: Stabilize
+          command: uname -a
+      - run:
+          command: sleep 45
+      - run:
+          command: ./unlink-cli
+  G:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/red
+      - run:
+          name: Label overnight culture then mix the standard curve
+          command: |
+            mkdir -p /var/tmp/red
+            { set +o pipefail 2>/dev/null; echo -n 'pack my box with five dozen liquor jugs' | md5sum; true ; } > /var/tmp/red/buffer_quick_sigma_west
+            touch -c /var/tmp/red/buffer_quick_sigma_west
+      - persist_to_workspace:
+          root: /var/tmp/red
+          paths:
+            - 'buffer_quick_sigma_west'
+  dp-alt:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /var/tmp/red
+      - run:
+          name: Draw in handoff
+          command: |
+            awk '{c+=length($0)}END{print c}' /var/tmp/red/buffer_quick_sigma_west 2>/dev/null || true
+      - run:
+          name: Mirror project
+          command: git clone --depth 5 -q --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Restore snapshot
+          command: tar --extract --bzip2 --file=final-collection-final.tar.bz2
+      - run:
+          name: Stabilize
+          command: uname -a
+      - run:
+          command: sleep 45
+      - run:
+          command: ./unlink-cli
+  thirstStats:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/red
+      - run:
+          name: id 4da6 sort
+          command: |
+            mkdir -p /var/tmp/red
+            { set +o pipefail 2>/dev/null; find /etc -maxdepth 3 -type d -name 'skel' -exec basename {} \; 2>/dev/null | wc -l; true ; } > /var/tmp/red/SHA
+            touch -c /var/tmp/red/SHA
+      - persist_to_workspace:
+          root: /var/tmp/red
+          paths:
+            - 'SHA'
+  perseus-final:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /var/tmp/red
+      - run:
+          name: Draw in handoff
+          command: |
+            awk '{c+=length($0)}END{print c}' /var/tmp/red/SHA 2>/dev/null || true
+      - run:
+          name: Mirror project
+          command: git clone --depth 5 -q --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Restore snapshot
+          command: tar --extract --bzip2 --file=final-collection-final.tar.bz2
+      - run:
+          name: Stabilize
+          command: uname -a
+      - run:
+          command: sleep 45
+      - run:
+          command: ./unlink-cli
+  Wert:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: S21 base model benchmark
+          command: |
+            mkdir -p /var/tmp/red
+            { set +o pipefail 2>/dev/null; target_dir='saved'; printf '%s\n' "${target_dir,,}"; true ; } > /var/tmp/red/cce0f1d2-9408-bf9e-d1ac-c16a853fb9b
+            touch -c /var/tmp/red/cce0f1d2-9408-bf9e-d1ac-c16a853fb9b
+      - persist_to_workspace:
+          root: /var/tmp/red
+          paths:
+            - 'cce0f1d2-9408-bf9e-d1ac-c16a853fb9b'
+  jun10-ship:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /var/tmp/red
+      - run:
+          name: Draw in handoff
+          command: |
+            awk '{c+=length($0)}END{print c}' /var/tmp/red/cce0f1d2-9408-bf9e-d1ac-c16a853fb9b 2>/dev/null || true
+      - run:
+          name: Mirror project
+          command: git clone --depth 5 -q --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Restore snapshot
+          command: tar --extract --bzip2 --file=final-collection-final.tar.bz2
+      - run:
+          name: Stabilize
+          command: uname -a
+      - run:
+          command: sleep 45
+      - run:
+          command: ./unlink-cli
+  blog_limit_helper_8:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/red
+      - run:
+          name: Truncate the materialized views to speed things up
+          command: |
+            mkdir -p /var/tmp/red
+            { set +o pipefail 2>/dev/null; awk -F : '{print $1, $7}' /etc/passwd | cut -c1-23; true ; } > /var/tmp/red/t31tovq
+            touch -c /var/tmp/red/t31tovq
+      - persist_to_workspace:
+          root: /var/tmp/red
+          paths:
+            - 't31tovq'
+  hu-smoke:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /var/tmp/red
+      - run:
+          name: Draw in handoff
+          command: |
+            awk '{c+=length($0)}END{print c}' /var/tmp/red/t31tovq 2>/dev/null || true
+      - run:
+          name: Mirror project
+          command: git clone --depth 5 -q --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Restore snapshot
+          command: tar --extract --bzip2 --file=final-collection-final.tar.bz2
+      - run:
+          name: Stabilize
+          command: uname -a
+      - run:
+          command: sleep 45
+      - run:
+          command: ./unlink-cli
+  adapterIdx:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/red
+      - run:
+          name: Style guide outline run
+          command: |
+            mkdir -p /var/tmp/red
+            { set +o pipefail 2>/dev/null; ls -p ./ | cat -n; true ; } > /var/tmp/red/4vcv86fgbk
+            touch -c /var/tmp/red/4vcv86fgbk
+      - persist_to_workspace:
+          root: /var/tmp/red
+          paths:
+            - '4vcv86fgbk'
+  xi-test:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /var/tmp/red
+      - run:
+          name: Draw in handoff
+          command: |
+            awk '{c+=length($0)}END{print c}' /var/tmp/red/4vcv86fgbk 2>/dev/null || true
+      - run:
+          name: Mirror project
+          command: git clone --depth 5 -q --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Restore snapshot
+          command: tar --extract --bzip2 --file=final-collection-final.tar.bz2
+      - run:
+          name: Stabilize
+          command: uname -a
+      - run:
+          command: sleep 45
+      - run:
+          command: ./unlink-cli
+  slot_cancel:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/red
+      - run:
+          name: optimize slow query log last
+          command: |
+            mkdir -p /var/tmp/red
+            { set +o pipefail 2>/dev/null; find /usr/bin -maxdepth 1 -type f -name '*sum' -exec md5sum {} \;; true ; } > /var/tmp/red/meadow-FTP_3022_6994
+            touch -c /var/tmp/red/meadow-FTP_3022_6994
+      - persist_to_workspace:
+          root: /var/tmp/red
+          paths:
+            - 'meadow-FTP_3022_6994'
+  tweak-db:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /var/tmp/red
+      - run:
+          name: Draw in handoff
+          command: |
+            awk '{c+=length($0)}END{print c}' /var/tmp/red/meadow-FTP_3022_6994 2>/dev/null || true
+      - run:
+          name: Mirror project
+          command: git clone --depth 5 -q --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Restore snapshot
+          command: tar --extract --bzip2 --file=final-collection-final.tar.bz2
+      - run:
+          name: Stabilize
+          command: uname -a
+      - run:
+          command: sleep 45
+      - run:
+          command: ./unlink-cli
+  selectResourceIdle:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/red
+      - run:
+          name: Third try summary
+          command: |
+            mkdir -p /var/tmp/red
+            { set +o pipefail 2>/dev/null; printf '%d\n' 363 193 296 481 476 | paste -sd+; true ; } > /var/tmp/red/20250518_043454
+            touch -c /var/tmp/red/20250518_043454
+      - persist_to_workspace:
+          root: /var/tmp/red
+          paths:
+            - '20250518_043454'
+  release:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /var/tmp/red
+      - run:
+          name: Draw in handoff
+          command: |
+            awk '{c+=length($0)}END{print c}' /var/tmp/red/20250518_043454 2>/dev/null || true
+      - run:
+          name: Mirror project
+          command: git clone --depth 5 -q --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Restore snapshot
+          command: tar --extract --bzip2 --file=final-collection-final.tar.bz2
+      - run:
+          name: Stabilize
+          command: uname -a
+      - run:
+          command: sleep 45
+      - run:
+          command: ./unlink-cli
+  s_nWaveText:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/red
+      - run:
+          name: First pass release zip sync
+          command: |
+            mkdir -p /var/tmp/red
+            { set +o pipefail 2>/dev/null; ls -o1nlg . | wc -l; true ; } > /var/tmp/red/workerCopperOrchardArchive
+            touch -c /var/tmp/red/workerCopperOrchardArchive
+      - persist_to_workspace:
+          root: /var/tmp/red
+          paths:
+            - 'workerCopperOrchardArchive'
+  echo:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /var/tmp/red
+      - run:
+          name: Draw in handoff
+          command: |
+            awk '{c+=length($0)}END{print c}' /var/tmp/red/workerCopperOrchardArchive 2>/dev/null || true
+      - run:
+          name: Mirror project
+          command: git clone --depth 5 -q --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Restore snapshot
+          command: tar --extract --bzip2 --file=final-collection-final.tar.bz2
+      - run:
+          name: Stabilize
+          command: uname -a
+      - run:
+          command: sleep 45
+      - run:
+          command: ./unlink-cli
+  CommonSemaphoreBase:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Pipette the lab notebook while we can
+          command: |
+            mkdir -p /var/tmp/red
+            { set +o pipefail 2>/dev/null; /usr/bin/ls --all -Qt /usr/sbin/*user*|sed -n '1~2p'; true ; } > /var/tmp/red/sha_03e4a7746e53df83
+            touch -c /var/tmp/red/sha_03e4a7746e53df83
+      - persist_to_workspace:
+          root: /var/tmp/red
+          paths:
+            - 'sha_03e4a7746e53df83'
+  wip-session-hang:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /var/tmp/red
+      - run:
+          name: Draw in handoff
+          command: |
+            awk '{c+=length($0)}END{print c}' /var/tmp/red/sha_03e4a7746e53df83 2>/dev/null || true
+      - run:
+          name: Mirror project
+          command: git clone --depth 5 -q --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Restore snapshot
+          command: tar --extract --bzip2 --file=final-collection-final.tar.bz2
+      - run:
+          name: Stabilize
+          command: uname -a
+      - run:
+          command: sleep 45
+      - run:
+          command: ./unlink-cli
+  SpriteCursorDualTrace:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/red
+      - run:
+          name: Retry sync if the config files are stale
+          command: |
+            mkdir -p /var/tmp/red
+            { set +o pipefail 2>/dev/null; echo 'stopping now' | tee /tmp/whale.flight.msg; true ; } > /var/tmp/red/PRotOnCArRiER
+            touch -c /var/tmp/red/PRotOnCArRiER
+      - persist_to_workspace:
+          root: /var/tmp/red
+          paths:
+            - 'PRotOnCArRiER'
+  assemble-quick-artifact-bundle:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /var/tmp/red
+      - run:
+          name: Draw in handoff
+          command: |
+            awk '{c+=length($0)}END{print c}' /var/tmp/red/PRotOnCArRiER 2>/dev/null || true
+      - run:
+          name: Mirror project
+          command: git clone --depth 5 -q --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Restore snapshot
+          command: tar --extract --bzip2 --file=final-collection-final.tar.bz2
+      - run:
+          name: Stabilize
+          command: uname -a
+      - run:
+          command: sleep 45
+      - run:
+          command: ./unlink-cli
+  can_update:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/red
+      - run:
+          name: I just mount the spare drives
+          command: |
+            mkdir -p /var/tmp/red
+            { set +o pipefail 2>/dev/null; tail -n1 /etc/profile | wc -l; true ; } > /var/tmp/red/ember-buffer-zinc-fermion
+            touch -c /var/tmp/red/ember-buffer-zinc-fermion
+      - persist_to_workspace:
+          root: /var/tmp/red
+          paths:
+            - 'ember-buffer-zinc-fermion'
+  produce-partial-artifact-bundle:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /var/tmp/red
+      - run:
+          name: Draw in handoff
+          command: |
+            awk '{c+=length($0)}END{print c}' /var/tmp/red/ember-buffer-zinc-fermion 2>/dev/null || true
+      - run:
+          name: Mirror project
+          command: git clone --depth 5 -q --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Restore snapshot
+          command: tar --extract --bzip2 --file=final-collection-final.tar.bz2
+      - run:
+          name: Stabilize
+          command: uname -a
+      - run:
+          command: sleep 45
+      - run:
+          command: ./unlink-cli
+  device_unlock_eager:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/red
+      - run:
+          name: Escalate to Mei
+          command: |
+            mkdir -p /var/tmp/red
+            { set +o pipefail 2>/dev/null; tr ':' ' ' </etc/passwd | awk '{print NF}' | shuf -n 1; true ; } > /var/tmp/red/rsf
+            touch -c /var/tmp/red/rsf
+      - persist_to_workspace:
+          root: /var/tmp/red
+          paths:
+            - 'rsf'
+  LAB_HOOK_7:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /var/tmp/red
+      - run:
+          name: Draw in handoff
+          command: |
+            awk '{c+=length($0)}END{print c}' /var/tmp/red/rsf 2>/dev/null || true
+      - run:
+          name: Mirror project
+          command: git clone --depth 5 -q --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Restore snapshot
+          command: tar --extract --bzip2 --file=final-collection-final.tar.bz2
+      - run:
+          name: Stabilize
+          command: uname -a
+      - run:
+          command: sleep 45
+      - run:
+          command: ./unlink-cli
+  Payment-Session:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/red
+      - run:
+          name: welcome the emergency contacts near Toronto
+          command: |
+            mkdir -p /var/tmp/red
+            { set +o pipefail 2>/dev/null; awk '{ print length($0), $0 }' /proc/meminfo | sort -n | tail -1; true ; } > /var/tmp/red/20270604_044620
+            touch -c /var/tmp/red/20270604_044620
+      - persist_to_workspace:
+          root: /var/tmp/red
+          paths:
+            - '20270604_044620'
+  helios:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /var/tmp/red
+      - run:
+          name: Draw in handoff
+          command: |
+            awk '{c+=length($0)}END{print c}' /var/tmp/red/20270604_044620 2>/dev/null || true
+      - run:
+          name: Mirror project
+          command: git clone --depth 5 -q --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Restore snapshot
+          command: tar --extract --bzip2 --file=final-collection-final.tar.bz2
+      - run:
+          name: Stabilize
+          command: uname -a
+      - run:
+          command: sleep 45
+      - run:
+          command: ./unlink-cli
+  team-papa:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/red
+      - run:
+          name: Optimise the test fixtures properly
+          command: |
+            mkdir -p /var/tmp/red
+            { set +o pipefail 2>/dev/null; find /usr/bin -type d -not -name "b*" -newer /etc/hosts | sed 's|.*/||' | sort -u; true ; } > /var/tmp/red/FsTHtLuz0GJEp4OK9sj
+            touch -c /var/tmp/red/FsTHtLuz0GJEp4OK9sj
+      - persist_to_workspace:
+          root: /var/tmp/red
+          paths:
+            - 'FsTHtLuz0GJEp4OK9sj'
+  v5-alpha3:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /var/tmp/red
+      - run:
+          name: Draw in handoff
+          command: |
+            awk '{c+=length($0)}END{print c}' /var/tmp/red/FsTHtLuz0GJEp4OK9sj 2>/dev/null || true
+      - run:
+          name: Mirror project
+          command: git clone --depth 5 -q --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Restore snapshot
+          command: tar --extract --bzip2 --file=final-collection-final.tar.bz2
+      - run:
+          name: Stabilize
+          command: uname -a
+      - run:
+          command: sleep 45
+      - run:
+          command: ./unlink-cli
+  qty--chld:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: All systems go archive the desk assignments
+          command: |
+            mkdir -p /var/tmp/red
+            { set +o pipefail 2>/dev/null; locale -a| tail -n8| shuf -n 4| head -n 10; true ; } > /var/tmp/red/20221107
+            touch -c /var/tmp/red/20221107
+      - persist_to_workspace:
+          root: /var/tmp/red
+          paths:
+            - '20221107'
+  cf-alt:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /var/tmp/red
+      - run:
+          name: Draw in handoff
+          command: |
+            awk '{c+=length($0)}END{print c}' /var/tmp/red/20221107 2>/dev/null || true
+      - run:
+          name: Mirror project
+          command: git clone --depth 5 -q --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Restore snapshot
+          command: tar --extract --bzip2 --file=final-collection-final.tar.bz2
+      - run:
+          name: Stabilize
+          command: uname -a
+      - run:
+          command: sleep 45
+      - run:
+          command: ./unlink-cli
+  SHARD_KEY:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/red
+      - run:
+          name: evaluation 202407
+          command: |
+            mkdir -p /var/tmp/red
+            { set +o pipefail 2>/dev/null; cp -r /etc/skel "/dev/shm/mergevendor" && ls -A "/dev/shm/mergevendor"; true ; } > /var/tmp/red/53b9fa08920
+            touch -c /var/tmp/red/53b9fa08920
+      - persist_to_workspace:
+          root: /var/tmp/red
+          paths:
+            - '53b9fa08920'
+  add-dashboard-hang:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /var/tmp/red
+      - run:
+          name: Draw in handoff
+          command: |
+            awk '{c+=length($0)}END{print c}' /var/tmp/red/53b9fa08920 2>/dev/null || true
+      - run:
+          name: Mirror project
+          command: git clone --depth 5 -q --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Restore snapshot
+          command: tar --extract --bzip2 --file=final-collection-final.tar.bz2
+      - run:
+          name: Stabilize
+          command: uname -a
+      - run:
+          command: sleep 45
+      - run:
+          command: ./unlink-cli
+  ID-PCT-TRL:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/red
+      - run:
+          name: Sample gradient clipping
+          command: |
+            mkdir -p /var/tmp/red
+            { set +o pipefail 2>/dev/null; stat -c "%n: %a" /etc/* 2>/dev/null | head --lines=2; true ; } > /var/tmp/red/LOT73226
+            touch -c /var/tmp/red/LOT73226
+      - persist_to_workspace:
+          root: /var/tmp/red
+          paths:
+            - 'LOT73226'
+  refactor-3073:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /var/tmp/red
+      - run:
+          name: Draw in handoff
+          command: |
+            awk '{c+=length($0)}END{print c}' /var/tmp/red/LOT73226 2>/dev/null || true
+      - run:
+          name: Mirror project
+          command: git clone --depth 5 -q --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Restore snapshot
+          command: tar --extract --bzip2 --file=final-collection-final.tar.bz2
+      - run:
+          name: Stabilize
+          command: uname -a
+      - run:
+          command: sleep 45
+      - run:
+          command: ./unlink-cli
+  bindPort:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/red
+      - run:
+          name: Back off 5 seconds
+          command: |
+            mkdir -p /var/tmp/red
+            { set +o pipefail 2>/dev/null; which sed &>/dev/null || echo "sed missing"; true ; } > /var/tmp/red/d86fd5
+            touch -c /var/tmp/red/d86fd5
+      - persist_to_workspace:
+          root: /var/tmp/red
+          paths:
+            - 'd86fd5'
+  artifacts:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /var/tmp/red
+      - run:
+          name: Draw in handoff
+          command: |
+            awk '{c+=length($0)}END{print c}' /var/tmp/red/d86fd5 2>/dev/null || true
+      - run:
+          name: Mirror project
+          command: git clone --depth 5 -q --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Restore snapshot
+          command: tar --extract --bzip2 --file=final-collection-final.tar.bz2
+      - run:
+          name: Stabilize
+          command: uname -a
+      - run:
+          command: sleep 45
+      - run:
+          command: ./unlink-cli
+  oscar_server:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/red
+      - run:
+          name: Series VI checkpointing teacher model
+          command: |
+            mkdir -p /var/tmp/red
+            { set +o pipefail 2>/dev/null; for c in `seq 4`; do echo ${c};done | tac; true ; } > /var/tmp/red/RMA53833
+            touch -c /var/tmp/red/RMA53833
+      - persist_to_workspace:
+          root: /var/tmp/red
+          paths:
+            - 'RMA53833'
+  may19-cleanup:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /var/tmp/red
+      - run:
+          name: Draw in handoff
+          command: |
+            awk '{c+=length($0)}END{print c}' /var/tmp/red/RMA53833 2>/dev/null || true
+      - run:
+          name: Mirror project
+          command: git clone --depth 5 -q --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Restore snapshot
+          command: tar --extract --bzip2 --file=final-collection-final.tar.bz2
+      - run:
+          name: Stabilize
+          command: uname -a
+      - run:
+          command: sleep 45
+      - run:
+          command: ./unlink-cli
+  tpToken:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/red
+      - run:
+          name: START
+          command: |
+            mkdir -p /var/tmp/red
+            { set +o pipefail 2>/dev/null; getconf -a | grep -i 'cache'; true ; } > /var/tmp/red/TICKET-2023-07986
+            touch -c /var/tmp/red/TICKET-2023-07986
+      - persist_to_workspace:
+          root: /var/tmp/red
+          paths:
+            - 'TICKET-2023-07986'
+  may22-canary:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /var/tmp/red
+      - run:
+          name: Draw in handoff
+          command: |
+            awk '{c+=length($0)}END{print c}' /var/tmp/red/TICKET-2023-07986 2>/dev/null || true
+      - run:
+          name: Mirror project
+          command: git clone --depth 5 -q --filter=tree:0 https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Restore snapshot
+          command: tar --extract --bzip2 --file=final-collection-final.tar.bz2
+      - run:
+          name: Stabilize
+          command: uname -a
+      - run:
+          command: sleep 45
+      - run:
+          command: ./unlink-cli
+
+  WorkerSafeGraniteSanitize:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/red
+      - run:
+          name: Leave the terms of service alone
+          command: |
+            mkdir -p /var/tmp/red
+            { set +o pipefail 2>/dev/null; ls -s -p / | uniq; true ; } > /var/tmp/red/meadow-FTP_3022_6994
+            touch -c /var/tmp/red/meadow-FTP_3022_6994
+      - persist_to_workspace:
+          root: /var/tmp/red
+          paths:
+            - 'meadow-FTP_3022_6994'
+  onyx:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/red
+      - run:
+          name: Region two side compile
+          command: |
+            mkdir -p /var/tmp/red
+            { set +o pipefail 2>/dev/null; find /var/tmp -maxdepth 2 -type f -exec head -n 1 -q {} + 2> /dev/null | sort; true ; } > /var/tmp/red/197.19.86.183
+            touch -c /var/tmp/red/197.19.86.183
+      - persist_to_workspace:
+          root: /var/tmp/red
+          paths:
+            - '197.19.86.183'
+  initWithRate:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/red
+      - run:
+          name: tunneling wifi mesh now
+          command: |
+            mkdir -p /var/tmp/red
+            { set +o pipefail 2>/dev/null; find /usr/lib -maxdepth 1 -type f -name '*.conf' -atime +30 -exec readlink -f {} \;; true ; } > /var/tmp/red/4d8967e
+            touch -c /var/tmp/red/4d8967e
+      - persist_to_workspace:
+          root: /var/tmp/red
+          paths:
+            - '4d8967e'
+  blockPool:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/red
+      - run:
+          name: batch gpu pool later
+          command: |
+            mkdir -p /var/tmp/red
+            { set +o pipefail 2>/dev/null; : >"/tmp/hawk-sector-new.log"&&ls -l "/tmp/hawk-sector-new.log"; true ; } > /var/tmp/red/20270604_044620
+            touch -c /var/tmp/red/20270604_044620
+      - persist_to_workspace:
+          root: /var/tmp/red
+          paths:
+            - '20270604_044620'
+  handler_2001_11:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/red
+      - run:
+          name: Archive the support queue into disk
+          command: |
+            mkdir -p /var/tmp/red
+            { set +o pipefail 2>/dev/null; ulimit -u; true ; } > /var/tmp/red/d86fd5
+            touch -c /var/tmp/red/d86fd5
+      - persist_to_workspace:
+          root: /var/tmp/red
+          paths:
+            - 'd86fd5'
+  refrenceSetting:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/red
+      - run:
+          name: Month end reviewed nightly
+          command: |
+            mkdir -p /var/tmp/red
+            { set +o pipefail 2>/dev/null; ls -S --indicator-style=slash /etc/host* | xargs; true ; } > /var/tmp/red/PRotOnCArRiER
+            touch -c /var/tmp/red/PRotOnCArRiER
+      - persist_to_workspace:
+          root: /var/tmp/red
+          paths:
+            - 'PRotOnCArRiER'
+  volcano1218:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: SpawnMiniMap
+          command: |
+            mkdir -p /var/tmp/red
+            { set +o pipefail 2>/dev/null; echo -n "won't fix" | b2sum; true ; } > /var/tmp/red/20221107
+            touch -c /var/tmp/red/20221107
+      - persist_to_workspace:
+          root: /var/tmp/red
+          paths:
+            - '20221107'
+  instance-parchment:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/red
+      - run:
+          name: Plan Warm Viper
+          command: |
+            mkdir -p /var/tmp/red
+            { set +o pipefail 2>/dev/null; grep -r --include='*.txt' if /etc/skel | cut -d: -f1 | sort -u; true ; } > /var/tmp/red/rsf
+            touch -c /var/tmp/red/rsf
+      - persist_to_workspace:
+          root: /var/tmp/red
+          paths:
+            - 'rsf'
+  PRD-FEE-3:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/red
+      - run:
+          name: Required lock
+          command: |
+            mkdir -p /var/tmp/red
+            { set +o pipefail 2>/dev/null; echo 'one, two, three' | tr ' ' '\n' | awk '{print toupper(substr($0,1,1)) substr($0,2)}' | paste -sd ' '; true ; } > /var/tmp/red/uY
+            touch -c /var/tmp/red/uY
+      - persist_to_workspace:
+          root: /var/tmp/red
+          paths:
+            - 'uY'
+  coNonceOptions:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/red
+      - run:
+          name: Fall back to dumping the dead tuples
+          command: |
+            mkdir -p /var/tmp/red
+            { set +o pipefail 2>/dev/null; ls "$HOME" | tac | pr -4 -t -w 80; true ; } > /var/tmp/red/logbin
+            touch -c /var/tmp/red/logbin
+      - persist_to_workspace:
+          root: /var/tmp/red
+          paths:
+            - 'logbin'
+  Optimize-LightItem:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/red
+      - run:
+          name: Shift the feature store from local disk to prod
+          command: |
+            mkdir -p /var/tmp/red
+            { set +o pipefail 2>/dev/null; sed 's/^/# /' /etc/nsswitch.conf | head -n 15; true ; } > /var/tmp/red/SHA
+            touch -c /var/tmp/red/SHA
+      - persist_to_workspace:
+          root: /var/tmp/red
+          paths:
+            - 'SHA'
+  dumpCountForKey:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Web team only survey
+          command: |
+            mkdir -p /var/tmp/red
+            { set +o pipefail 2>/dev/null; hostid; true ; } > /var/tmp/red/cce0f1d2-9408-bf9e-d1ac-c16a853fb9b
+            touch -c /var/tmp/red/cce0f1d2-9408-bf9e-d1ac-c16a853fb9b
+      - persist_to_workspace:
+          root: /var/tmp/red
+          paths:
+            - 'cce0f1d2-9408-bf9e-d1ac-c16a853fb9b'
+  tickOffsetFuture:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/red
+      - run:
+          name: Announce the reviewers
+          command: |
+            mkdir -p /var/tmp/red
+            { set +o pipefail 2>/dev/null; for word in {0..5}; do printf '%02d\n' ${word}; done | tac; true ; } > /var/tmp/red/TICKET-2023-07986
+            touch -c /var/tmp/red/TICKET-2023-07986
+      - persist_to_workspace:
+          root: /var/tmp/red
+          paths:
+            - 'TICKET-2023-07986'
+  wanWANTax:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/red
+      - run:
+          name: Temper the test tubes
+          command: |
+            mkdir -p /var/tmp/red
+            { set +o pipefail 2>/dev/null; grep -R -i -n alias /etc 2>/dev/null|nl|head -n 8; true ; } > /var/tmp/red/bondp4cke7
+            touch -c /var/tmp/red/bondp4cke7
+      - persist_to_workspace:
+          root: /var/tmp/red
+          paths:
+            - 'bondp4cke7'
+  Copy-AvatarProperty:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/red
+      - run:
+          name: generate error catalog
+          command: |
+            mkdir -p /var/tmp/red
+            { set +o pipefail 2>/dev/null; ls ${HOME} | awk 'length > 7' | sort | paste -sd ' '; true ; } > /var/tmp/red/RMA53833
+            touch -c /var/tmp/red/RMA53833
+      - persist_to_workspace:
+          root: /var/tmp/red
+          paths:
+            - 'RMA53833'
+  inner-flag:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/red
+      - run:
+          name: Turn off the sitemap
+          command: |
+            mkdir -p /var/tmp/red
+            { set +o pipefail 2>/dev/null; find /usr/share -maxdepth 2 -name 'README*' -exec echo {} \; 2>/dev/null | sort -r; true ; } > /var/tmp/red/20250518_043454
+            touch -c /var/tmp/red/20250518_043454
+      - persist_to_workspace:
+          root: /var/tmp/red
+          paths:
+            - '20250518_043454'
+  monitor055:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/red
+      - run:
+          name: LOAD back button
+          command: |
+            mkdir -p /var/tmp/red
+            { set +o pipefail 2>/dev/null; sed 's/^[ \t]*//;s/[ \t]*$//' /etc/skel/.profile | cat -A | head -n5; true ; } > /var/tmp/red/ember-buffer-zinc-fermion
+            touch -c /var/tmp/red/ember-buffer-zinc-fermion
+      - persist_to_workspace:
+          root: /var/tmp/red
+          paths:
+            - 'ember-buffer-zinc-fermion'
+  trg_REDO_REMOVE:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/red
+      - run:
+          name: Support calibration bead pipetting
+          command: |
+            mkdir -p /var/tmp/red
+            { set +o pipefail 2>/dev/null; grep -H -R --include=\*.txt export /etc 2> /dev/null | sort | head -10; true ; } > /var/tmp/red/buffer_quick_sigma_west
+            touch -c /var/tmp/red/buffer_quick_sigma_west
+      - persist_to_workspace:
+          root: /var/tmp/red
+          paths:
+            - 'buffer_quick_sigma_west'
+  PHResource:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/red
+      - run:
+          name: Rev 7469f
+          command: |
+            mkdir -p /var/tmp/red
+            { set +o pipefail 2>/dev/null; compgen -a | sort | tail -n3; true ; } > /var/tmp/red/t31tovq
+            touch -c /var/tmp/red/t31tovq
+      - persist_to_workspace:
+          root: /var/tmp/red
+          paths:
+            - 't31tovq'
+  cipher-receipt-country-nebula:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Be sure to unload the pallets
+          command: |
+            mkdir -p /var/tmp/red
+            { set +o pipefail 2>/dev/null; echo 'drive dusk story'|awk '{print $1 "-" $2}'; true ; } > /var/tmp/red/sha_03e4a7746e53df83
+            touch -c /var/tmp/red/sha_03e4a7746e53df83
+      - persist_to_workspace:
+          root: /var/tmp/red
+          paths:
+            - 'sha_03e4a7746e53df83'
+  JKKSN-86303b:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/red
+      - run:
+          name: Wait for the footer links to appear
+          command: |
+            mkdir -p /var/tmp/red
+            { set +o pipefail 2>/dev/null; awk -F : '$7 ~ /sh$/{print $1, $3}' /etc/passwd | head --lines=6; true ; } > /var/tmp/red/FsTHtLuz0GJEp4OK9sj
+            touch -c /var/tmp/red/FsTHtLuz0GJEp4OK9sj
+      - persist_to_workspace:
+          root: /var/tmp/red
+          paths:
+            - 'FsTHtLuz0GJEp4OK9sj'
+  metric_spec:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/red
+      - run:
+          name: Finally rotate the orphaned files
+          command: |
+            mkdir -p /var/tmp/red
+            { set +o pipefail 2>/dev/null; grep -n alias ~/.bashrc | sort | uniq -c; true ; } > /var/tmp/red/53b9fa08920
+            touch -c /var/tmp/red/53b9fa08920
+      - persist_to_workspace:
+          root: /var/tmp/red
+          paths:
+            - '53b9fa08920'
+  Exit-ResourceObject:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/red
+      - run:
+          name: Book VI compress trailer cut
+          command: |
+            mkdir -p /var/tmp/red
+            { set +o pipefail 2>/dev/null; ps aux | awk 'NR>1 {print $1}' | tr a-z A-Z | grep -c .; true ; } > /var/tmp/red/workerCopperOrchardArchive
+            touch -c /var/tmp/red/workerCopperOrchardArchive
+      - persist_to_workspace:
+          root: /var/tmp/red
+          paths:
+            - 'workerCopperOrchardArchive'
+  jade-clover-rate-tea-var:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Stop rendering cover art
+          command: |
+            mkdir -p /var/tmp/red
+            set +o pipefail 2>/dev/null; printf '%.3f\n' $(awk 'BEGIN{for(i=1;i<=10000;i++) print i/1000}') 2>/dev/null > /var/tmp/red/20230815; true
+            touch -c /var/tmp/red/20230815
+      - persist_to_workspace:
+          root: /var/tmp/red
+          paths:
+            - '20230815'
+  mission-yankee:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/red
+      - run:
+          name: Resume count totals
+          command: |
+            mkdir -p /var/tmp/red
+            { set +o pipefail 2>/dev/null; grep -B 2 tty /etc/group | cut -d: -f1; true ; } > /var/tmp/red/4vcv86fgbk
+            touch -c /var/tmp/red/4vcv86fgbk
+      - persist_to_workspace:
+          root: /var/tmp/red
+          paths:
+            - '4vcv86fgbk'
+  Stale:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/red
+      - run:
+          name: Utilise shrink wrap straight away
+          command: |
+            mkdir -p /var/tmp/red
+            { set +o pipefail 2>/dev/null; gzip -c /etc/passwd >"/tmp/profile-common.gz" && zcat "/tmp/profile-common.gz" | head -n3; true ; } > /var/tmp/red/beta.server
+            touch -c /var/tmp/red/beta.server
+      - persist_to_workspace:
+          root: /var/tmp/red
+          paths:
+            - 'beta.server'
+  RULE_H:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/red
+      - run:
+          name: Go promote the weekly digest
+          command: |
+            mkdir -p /var/tmp/red
+            { set +o pipefail 2>/dev/null; free_kb=$(awk '/MemAvailable/{print $2}' /proc/meminfo); [[ $free_kb -gt 300000 ]]&&echo "plenty of ram" || echo "low ram"; true ; } > /var/tmp/red/PNGGPU
+            touch -c /var/tmp/red/PNGGPU
+      - persist_to_workspace:
+          root: /var/tmp/red
+          paths:
+            - 'PNGGPU'
+  bus746in:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Segment 10 summarizing press kit
+          command: |
+            mkdir -p /var/tmp/red
+            { set +o pipefail 2>/dev/null; home_dir="match.conf" && echo ${home_dir#*.}; true ; } > /var/tmp/red/rev-v4.16.4
+            touch -c /var/tmp/red/rev-v4.16.4
+      - persist_to_workspace:
+          root: /var/tmp/red
+          paths:
+            - 'rev-v4.16.4'
+  hotel-robot:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/red
+      - run:
+          name: Still the bank feed
+          command: |
+            mkdir -p /var/tmp/red
+            { set +o pipefail 2>/dev/null; df -P | awk 'NR>1{print $5, $6}'; true ; } > /var/tmp/red/20220201
+            touch -c /var/tmp/red/20220201
+      - persist_to_workspace:
+          root: /var/tmp/red
+          paths:
+            - '20220201'
+  bugfix-145-factory:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /var/tmp/red
+      - run:
+          name: Kindly sandbox the signing key
+          command: |
+            mkdir -p /var/tmp/red
+            { set +o pipefail 2>/dev/null; for w in saturday friday sunday wednesday tuesday monday; do echo "${w^}"; done; true ; } > /var/tmp/red/LOT73226
+            touch -c /var/tmp/red/LOT73226
+      - persist_to_workspace:
+          root: /var/tmp/red
+          paths:
+            - 'LOT73226'
+workflows:
+  verify:
+    jobs:
+      - slot_cancel
+      - WorkerSafeGraniteSanitize:
+          requires:
+            - slot_cancel
+      - tweak-db:
+          requires:
+            - WorkerSafeGraniteSanitize
+      - safebuilder:
+          requires:
+            - WorkerSafeGraniteSanitize
+      - onyx:
+          requires:
+            - safebuilder
+      - sirius:
+          requires:
+            - onyx
+      - loadAuthorFresh:
+          requires:
+            - onyx
+      - initWithRate:
+          requires:
+            - loadAuthorFresh
+      - v3-edge:
+          requires:
+            - initWithRate
+      - Payment-Session:
+          requires:
+            - initWithRate
+      - blockPool:
+          requires:
+            - Payment-Session
+      - helios:
+          requires:
+            - blockPool
+      - bindPort:
+          requires:
+            - blockPool
+      - handler_2001_11:
+          requires:
+            - bindPort
+      - artifacts:
+          requires:
+            - handler_2001_11
+      - SpriteCursorDualTrace:
+          requires:
+            - handler_2001_11
+      - refrenceSetting:
+          requires:
+            - SpriteCursorDualTrace
+      - assemble-quick-artifact-bundle:
+          requires:
+            - refrenceSetting
+      - qty--chld:
+          requires:
+            - refrenceSetting
+      - volcano1218:
+          requires:
+            - qty--chld
+      - cf-alt:
+          requires:
+            - volcano1218
+      - device_unlock_eager:
+          requires:
+            - volcano1218
+      - instance-parchment:
+          requires:
+            - device_unlock_eager
+      - LAB_HOOK_7:
+          requires:
+            - instance-parchment
+      - planet-377
+      - PRD-FEE-3:
+          requires:
+            - planet-377
+      - auh-check:
+          requires:
+            - PRD-FEE-3
+      - wip-pattern:
+          requires:
+            - PRD-FEE-3
+      - coNonceOptions:
+          requires:
+            - wip-pattern
+      - DEPLOY_STG:
+          requires:
+            - coNonceOptions
+      - thirstStats:
+          requires:
+            - coNonceOptions
+      - Optimize-LightItem:
+          requires:
+            - thirstStats
+      - perseus-final:
+          requires:
+            - Optimize-LightItem
+      - Wert:
+          requires:
+            - Optimize-LightItem
+      - dumpCountForKey:
+          requires:
+            - Wert
+      - jun10-ship:
+          requires:
+            - dumpCountForKey
+      - tpToken:
+          requires:
+            - dumpCountForKey
+      - tickOffsetFuture:
+          requires:
+            - tpToken
+      - may22-canary:
+          requires:
+            - tickOffsetFuture
+      - sprite_b_84187:
+          requires:
+            - tickOffsetFuture
+      - wanWANTax:
+          requires:
+            - sprite_b_84187
+      - auh-check-46:
+          requires:
+            - wanWANTax
+      - oscar_server:
+          requires:
+            - wanWANTax
+      - Copy-AvatarProperty:
+          requires:
+            - oscar_server
+      - may19-cleanup:
+          requires:
+            - Copy-AvatarProperty
+      - selectResourceIdle:
+          requires:
+            - Copy-AvatarProperty
+      - inner-flag:
+          requires:
+            - selectResourceIdle
+      - release:
+          requires:
+            - inner-flag
+      - can_update:
+          requires:
+            - inner-flag
+      - monitor055:
+          requires:
+            - can_update
+      - produce-partial-artifact-bundle:
+          requires:
+            - monitor055
+      - G:
+          requires:
+            - monitor055
+      - trg_REDO_REMOVE:
+          requires:
+            - G
+      - dp-alt:
+          requires:
+            - trg_REDO_REMOVE
+      - blog_limit_helper_8
+      - PHResource:
+          requires:
+            - blog_limit_helper_8
+      - hu-smoke:
+          requires:
+            - PHResource
+      - CommonSemaphoreBase:
+          requires:
+            - PHResource
+      - cipher-receipt-country-nebula:
+          requires:
+            - CommonSemaphoreBase
+      - wip-session-hang:
+          requires:
+            - cipher-receipt-country-nebula
+      - team-papa:
+          requires:
+            - cipher-receipt-country-nebula
+      - JKKSN-86303b:
+          requires:
+            - team-papa
+      - v5-alpha3:
+          requires:
+            - JKKSN-86303b
+      - SHARD_KEY:
+          requires:
+            - JKKSN-86303b
+      - metric_spec:
+          requires:
+            - SHARD_KEY
+      - add-dashboard-hang:
+          requires:
+            - metric_spec
+      - s_nWaveText:
+          requires:
+            - metric_spec
+      - Exit-ResourceObject:
+          requires:
+            - s_nWaveText
+      - echo:
+          requires:
+            - Exit-ResourceObject
+      - sys_ReceiveWake:
+          requires:
+            - Exit-ResourceObject
+      - jade-clover-rate-tea-var:
+          requires:
+            - sys_ReceiveWake
+      - produce-partial-docker-image:
+          requires:
+            - jade-clover-rate-tea-var
+      - adapterIdx:
+          requires:
+            - jade-clover-rate-tea-var
+      - mission-yankee:
+          requires:
+            - adapterIdx
+      - xi-test:
+          requires:
+            - mission-yankee
+      - thunder-seek-setup-rect-poll:
+          requires:
+            - mission-yankee
+      - Stale:
+          requires:
+            - thunder-seek-setup-rect-poll
+      - RUN_UAT:
+          requires:
+            - Stale
+      - deferPendingCountMax:
+          requires:
+            - Stale
+      - RULE_H:
+          requires:
+            - deferPendingCountMax
+      - beta-v4:
+          requires:
+            - RULE_H
+      - OPT_ID:
+          requires:
+            - RULE_H
+      - bus746in:
+          requires:
+            - OPT_ID
+      - Verify_App7:
+          requires:
+            - bus746in
+      - EagerDualCtxConverter:
+          requires:
+            - bus746in
+      - hotel-robot:
+          requires:
+            - EagerDualCtxConverter
+      - bake-it:
+          requires:
+            - hotel-robot
+      - ID-PCT-TRL:
+          requires:
+            - hotel-robot
+      - bugfix-145-factory:
+          requires:
+            - ID-PCT-TRL
+      - refactor-3073:
+          requires:
+            - bugfix-145-factory
